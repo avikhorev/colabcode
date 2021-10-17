@@ -23,6 +23,7 @@ class ColabCode:
     def __init__(
         self,
         port=10000,
+        proto='http',
         password=None,
         authtoken=None,
         mount_drive=False,
@@ -30,6 +31,7 @@ class ColabCode:
         lab=False,
     ):
         self.port = port
+        self.proto = proto
         self.password = password
         self.authtoken = authtoken
         self._mount = mount_drive
@@ -64,7 +66,7 @@ class ColabCode:
         for tunnel in active_tunnels:
             public_url = tunnel.public_url
             ngrok.disconnect(public_url)
-        url = ngrok.connect(addr=self.port, bind_tls=True)
+        url = ngrok.connect(addr=self.port, proto=self.proto, bind_tls=True).public_url
         if self._code:
             print(f"Code Server can be accessed on: {url}")
         else:
