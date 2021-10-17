@@ -68,8 +68,7 @@ class ColabCode:
             stdout=subprocess.PIPE,
         )
 
-    @staticmethod
-    def _install_extensions():
+    def _install_extensions(self):
         for ext in EXTENSIONS:
             subprocess.run(["code-server", "--install-extension", f"{ext}"])
         for ext in self.extentions:
