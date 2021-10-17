@@ -15,9 +15,21 @@ except ImportError:
     colab_env = False
 
 
-EXTENSIONS = ["ms-python.python", "ms-toolsai.jupyter", "mechatroner.rainbow-csv", "vscode-icons-team.vscode-icons"]
+EXTENSIONS = [
+    "ms-python.python", 
+    "ms-toolsai.jupyter", 
+    "mechatroner.rainbow-csv", 
+    "vscode-icons-team.vscode-icons", 
+	"mhutchie.git-graph",
+	"ms-toolsai.jupyter",
+	"ms-toolsai.jupyter-renderers",
+	"ms-python.vscode-pylance",
+	"ms-python.python",
+	"mutantdino.resourcemonitor",
+	"ccimage.jsonviewer",
+	"funkyremi.vscode-google-translate"
+]
 CODESERVER_VERSION = "3.10.2"
-
 
 class ColabCode:
     def __init__(
@@ -29,6 +41,7 @@ class ColabCode:
         mount_drive=False,
         code=True,
         lab=False,
+        extentions = []
     ):
         self.port = port
         self.proto = proto
@@ -37,6 +50,7 @@ class ColabCode:
         self._mount = mount_drive
         self._code = code
         self._lab = lab
+        self.extentions = extentions
         if self._lab:
             self._start_server()
             self._run_lab()
@@ -57,6 +71,8 @@ class ColabCode:
     @staticmethod
     def _install_extensions():
         for ext in EXTENSIONS:
+            subprocess.run(["code-server", "--install-extension", f"{ext}"])
+        for ext in self.extentions:
             subprocess.run(["code-server", "--install-extension", f"{ext}"])
 
     def _start_server(self):
