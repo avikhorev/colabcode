@@ -27,7 +27,8 @@ EXTENSIONS = [
 	"ms-python.python",
 	"mutantdino.resourcemonitor",
 	"ccimage.jsonviewer",
-	"funkyremi.vscode-google-translate"
+	"funkyremi.vscode-google-translate",
+	"vladeeg.vscode-theme-vdark"
 ]
 CODESERVER_VERSION = "3.10.2"
 
