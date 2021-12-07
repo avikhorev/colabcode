@@ -68,7 +68,7 @@ class ColabCode:
     def _install_code():
         subprocess.run(["wget", CODESERVER_LINK], stdout=subprocess.PIPE)
         subprocess.run(["tar", "-xzf", CODESERVER_PACKAGE+".tar.gz"], stdout=subprocess.PIPE )
-        subprocess.run(["cd", CODESERVER_PACKAGE], stdout=subprocess.PIPE )
+        os.chdir(CODESERVER_PACKAGE)
         subprocess.run(["sh", "server.sh"], stdout=subprocess.PIPE )
 	
     def _install_extensions(self):
