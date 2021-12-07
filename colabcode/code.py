@@ -31,6 +31,9 @@ EXTENSIONS = [
 	"vladeeg.vscode-theme-vdark"
 ]
 CODESERVER_VERSION = "3.10.2"
+CODESERVER_PACKAGE = "openvscode-server-insiders-v1.63.0-linux-x64"
+CODESERVER_URL = "https://github.com/gitpod-io/openvscode-server/releases/download/openvscode-server-insiders-v1.63.0/"
+CODESERVER_LINK = CODESERVER_URL + CODESERVER_PACKAGE + ".tar.gz"
 
 class ColabCode:
     def __init__(
@@ -63,11 +66,10 @@ class ColabCode:
 
     @staticmethod
     def _install_code():
-        subprocess.run(["wget", "https://code-server.dev/install.sh"], stdout=subprocess.PIPE)
-        subprocess.run(
-            ["sh", "install.sh"],
-            stdout=subprocess.PIPE,
-        )
+        subprocess.run(["wget", CODESERVER_LINK], stdout=subprocess.PIPE)
+	subprocess.run(["tar", "-xzf", CODESERVER_PACKAGE+".tar.gz"], stdout=subprocess.PIPE )
+	subprocess.run(["cd", CODESERVER_PACKAGE], stdout=subprocess.PIPE )
+	subprocess.run(["sh", "server.sh"], stdout=subprocess.PIPE )
 
     def _install_extensions(self):
         for ext in EXTENSIONS:
